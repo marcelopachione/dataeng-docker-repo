@@ -1,0 +1,51 @@
+# version: '3'
+name: postgres-cluster
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - postgresql_datafiles:/var/lib/postgresql/data
+      - ./files:/files
+      - ../stage:/stage
+    networks:
+      - data-eng
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_LISTEN_PORT: 5050
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - 5050:5050
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - pgadmin_root_prefs:/root/.pgadmin
+      - pgadmin_working_dir:/var/lib/pgadmin
+      - ./files:/files
+      - ../stage:/stage
+    networks:
+      - data-eng
+
+networks:
+  data-eng:
+    driver: bridge
+
+volumes:
+  pgadmin_root_prefs:
+    driver: local
+  pgadmin_working_dir:
+    driver: local
+  postgresql_datafiles:
+    driver: local
+  postgresql_bin:
+    driver: local

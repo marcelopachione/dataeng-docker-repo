@@ -1,4 +1,4 @@
-# version: '3'
+version: '3.8'
 name: pyspark-cluster
 
 services:
@@ -16,11 +16,14 @@ services:
       - ./datasets:/opt/spark/data
       - ./jobs:/opt/spark/apps
       - spark-logs:/opt/spark/spark-events
+      - ../stage:/stage
     env_file:
       - .env.spark
     ports:
       - '9091:8080'
       - '7071:7077'
+    networks:
+      - data-eng
 
   spark-history-server:
     container_name: pyspark-history
@@ -32,8 +35,11 @@ services:
       - .env.spark
     volumes:
       - spark-logs:/opt/spark/spark-events
+      - ../stage:/stage
     ports:
       - '18081:18080'
+    networks:
+      - data-eng
 
   spark-worker:
     image: pyspark-image
@@ -46,6 +52,13 @@ services:
       - ./datasets:/opt/spark/data
       - ./jobs:/opt/spark/apps
       - spark-logs:/opt/spark/spark-events
+      - ../stage:/stage
+    networks:
+      - data-eng
+
+networks:
+  data-eng:
+    driver: bridge
 
 volumes:
   spark-logs:
