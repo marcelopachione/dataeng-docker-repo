@@ -1,0 +1,25 @@
+# version: '3'
+name: minio-datalake
+services:
+  minio:
+    container_name: minio
+    image: minio/minio
+    hostname: minio
+    command:  server --console-address ":9001" /data
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio@123
+      MINIO_ACCESS_KEY: datalake
+      MINIO_SECRET_KEY: datalake
+    volumes:
+      - ./datalake:/data
+      - ../stage:/stage
+    ports:
+      - "9050:9000"
+      - "9051:9001"
+    networks:
+      - data-eng
+
+networks:
+  data-eng:
+    driver: bridge
