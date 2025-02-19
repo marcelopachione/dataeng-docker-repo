@@ -8,6 +8,7 @@ This repository contains configurations for creating and managing a modern data 
 |--------------|-----------------------------------------------|---------------------------------------------------|--------------|
 | PostgreSQL + PgAdmin | Relational database and administration tool | `docker-compose -f postgres/docker-compose.yml up -d` | `docker-compose -f postgres/docker-compose.yml down` |
 | Spark Cluster | Apache Spark cluster with 2 worker nodes | `docker-compose -f spark/docker-compose.yml up -d --scale spark-worker=2` | `docker-compose -f spark/docker-compose.yml down` |
+| Minio | Buckets | `docker-compose -f minio/docker-compose.yml up -d` | `docker-compose -f minio/docker-compose.yml down` |
 
 ---
 
@@ -24,3 +25,5 @@ This repository contains configurations for creating and managing a modern data 
   ```sh
   docker exec -it <container_name> /bin/bash
   ```
+
+---
