@@ -9,6 +9,7 @@ This repository contains configurations for creating and managing a modern data 
 | PostgreSQL + PgAdmin | Relational database and administration tool | `docker-compose -f postgres/docker-compose.yml up -d` | `docker-compose -f postgres/docker-compose.yml down` |
 | Spark Cluster | Apache Spark cluster with 2 worker nodes | `docker-compose -f spark/docker-compose.yml up -d --scale spark-worker=2` | `docker-compose -f spark/docker-compose.yml down` |
 | Minio | Buckets | `docker-compose -f minio/docker-compose.yml up -d` | `docker-compose -f minio/docker-compose.yml down` |
+| Airflow | Pipeline Orchestration | `cd airflow & docker-compose up airflow-init` after you can start `docker-compose up -d` | `docker-compose -f aiflow/docker-compose.yml down` |
 
 ---
 
